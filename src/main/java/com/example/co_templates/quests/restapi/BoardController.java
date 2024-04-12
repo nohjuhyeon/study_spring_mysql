@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.co_templates.quests.services.BoardService;
+import com.example.co_templates.quests.restapi.BoardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +18,6 @@ public class BoardController {
 
     @Autowired BoardService BoardService;
 
-    @GetMapping("q/r/board/callDao")
-    public ResponseEntity<Object> callDao(HashMap<String, Object> dataMap){
-        HashMap<String, Object> resultMap = new HashMap<>();
-        resultMap =  BoardService.dao_mixed(dataMap);
-        return ResponseEntity.ok().body(resultMap);
-    }
     @GetMapping("/q/r/board/mixed/{pageNumber}/{pk_id}")
     public ResponseEntity<HashMap<String, Object>> mixed(@PathVariable("pageNumber") String pageNumber,
             @PathVariable("pk_id") String pkId) {
