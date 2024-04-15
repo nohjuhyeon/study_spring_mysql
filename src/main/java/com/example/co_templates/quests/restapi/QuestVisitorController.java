@@ -17,46 +17,42 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-public class QuestBoardController {
+public class QuestVisitorController {
 
     @Autowired
     Commons commons;
 
-    @Autowired QuestBoardService BoardService;
     @Autowired QuestVisitorsService QuestVisitorsService;
 
-    public String pk_board_id = "news-011";
-    public String pk_write_id = "author-6";
-
-    @GetMapping({"/q/r/board/List/{pageNumber}", "/q/r/board/List"})
+    @GetMapping({"/q/r/visitor/List/{pageNumber}", "/q/r/visitor/List"})
     public ResponseEntity<Object> callBoardList(@PathVariable(required = false) String pageNumber
             ,@RequestBody HashMap<String,Object> dataMap) {
-        Object list =BoardService.board_list(dataMap);
-
+        Object list = QuestVisitorsService.visitors_list(dataMap);
         return ResponseEntity.ok().body(list);
     }
-    // http://localhost:8080/q/r/board/List
+    // URL : http://localhost:8080/q/r/visitor/List
 
-    @GetMapping("/q/r/board/Insert")
+    @GetMapping("/q/r/visitor/Insert")
     public int callBoardInsert(@RequestBody HashMap<String, Object> dataMap) {
-        int InsertNum = BoardService.board_insert(dataMap);
+        int InsertNum = QuestVisitorsService.visitors_insert(dataMap);
         return InsertNum;
     }
-    // URL : http://localhost:8080/q/r/board/Insert
-    // Body : {"PK_BOARDS" : "news-011", "PK_VISITORS": "author-6", "TITLE" : "test_title", "CONTENTS" : "test_content", "PARENT_BOARDS" : "test"}
+    // URL : http://localhost:8080/q/r/visitor/Insert
+    //Body :  {"PK_VISITORS" : "visitor-111", "WRITER_ID" : "user-11", "PK_BOARDS" : news-011)}
 
-    @GetMapping("/q/r/board/Update")
+    @GetMapping("/q/r/visitor/Update")
     public int callBoardUpdate(@RequestBody HashMap<String, Object>  dataMap) {
-        int updateNum = BoardService.board_update(dataMap);
+        int updateNum = QuestVisitorsService.visitors_update(dataMap);
         return updateNum;
     }
-    // http://localhost:8080/q/r/board/Delete
-    // Body : {"CONTENTS" : "수정합니다.","PK_BOARDS":  "news-011"}
-    @GetMapping("/q/r/board/Delete")
+    // URL : http://localhost:8080/q/r/visitor/Update
+    // Body : {"WRITER_ID" : "user12", "PK_BOARDS": "news-011"}
+
+    @GetMapping("/q/r/visitor/Delete")
     public int callBoardDelete(@RequestBody HashMap<String, Object>  dataMap) {
-        int deleteNum = BoardService.board_delete(dataMap);
+        int deleteNum = QuestVisitorsService.visitors_delete(dataMap);
         return deleteNum;
     }
-    // http://localhost:8080/q/r/board/Delete
+    // URL : http://localhost:8080/q/r/visitor/Delete
     // Body : {"PK_BOARDS" : "news-011"}
 }

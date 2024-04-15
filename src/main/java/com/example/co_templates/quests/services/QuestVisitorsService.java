@@ -26,25 +26,19 @@ public class QuestVisitorsService {
         Object one = shareDao.getOne(sqlMapId, dataMap);
         return one;
     }
-    public int visitors_insert(HashMap<String, Object> dataMap, String pk_visitor, String pk_user_id, String pk_board_id){
+    public int visitors_insert(HashMap<String, Object> dataMap){
         String sqlMapId = "VisitorCode.insert";
-        dataMap.put("PK_VISITORS",pk_visitor);
-        dataMap.put("WRITER_ID",pk_user_id);
-        dataMap.put("PK_BOARDS",pk_board_id);
         Object insert = shareDao.insert(sqlMapId, dataMap);
         return dataMap.size();
     }
 
-    public int visitors_delete(HashMap<String, Object> dataMap, String pk_board_id){
+    public int visitors_delete(HashMap<String, Object> dataMap){
         String sqlMapId = "VisitorCode.delete";
-        dataMap.put("PK_BOARDS",pk_board_id);
         Object delete = shareDao.delete(sqlMapId, dataMap);
         return dataMap.size();
     }
-    public int visitors_update(HashMap<String, Object> dataMap, String pk_board_id){
+    public int visitors_update(HashMap<String, Object> dataMap){
         String sqlMapId = "VisitorCode.update";
-        dataMap.put("WRITER_ID","user12");
-        dataMap.put("PK_BOARDS",pk_board_id);
         Object update = shareDao.update(sqlMapId, dataMap);
         return dataMap.size();
     }
