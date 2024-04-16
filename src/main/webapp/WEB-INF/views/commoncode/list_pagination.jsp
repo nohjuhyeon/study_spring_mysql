@@ -1,4 +1,4 @@
-<%@ page import="java.util.HashMap, java.util.ArrayList" %>
+<%@ page import="java.util.HashMap, java.util.ArrayList, com.example.co_templates.utils.Paginations" %>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -41,8 +41,10 @@
                 <div class="row">
                     <div class="col-md-8">
                         <h2>Search</h2>
-                        <% HashMap dataMap=(HashMap) request.getAttribute("dataMap"); String search=(String)
-                            dataMap.getOrDefault("search", "" ); %>
+                        <% 
+                            HashMap dataMap=(HashMap) request.getAttribute("dataMap"); 
+                            String search= (String) dataMap.getOrDefault("search", "" );
+                        %>
                             <div class="input-group mb-3">
                                 <!-- 셀렉트 박스 추가 -->
                                 <select class="form-select" id="searchType" name="searchType">
@@ -64,8 +66,13 @@
                                 <th>DESCRIPTION</th>
                             </thead>
                             <tbody>
-                                <% ArrayList itemList= (ArrayList) request.getAttribute("resultList"); for(Object obj:
-                                    itemList) { HashMap record=(HashMap) obj; %>
+                                <% 
+                                    HashMap result = (HashMap) request.getAttribute("result");
+                                    ArrayList itemList = (ArrayList) result.get("resultList");
+
+                                    for(Object obj: itemList) { 
+                                        HashMap record=(HashMap) obj;
+                                %>
                                     <tr>
                                         <td>
                                             <input type="checkbox" class="form-check-input" name="deleteIds"
@@ -87,17 +94,21 @@
                     </div>
                 </div>
                 <!-- Pagination with buttons and query parameters -->
+                <% 
+                    Paginations paginations = (Paginations) result.get("paginations");
+                %>
                 <nav aria-label="Page navigation">
+                    <div> <%= paginations.getTotalCount() %></div>
                     <ul class="pagination justify-content-center">
-                        <li class="page-item"><button class="page-link" type="submit" name="page"
+                        <li class="page-item"><button class="page-link" type="submit" name="currentPage"
                                 value="Previous">Previous</button></li>
-                        <li class="page-item"><button class="page-link" type="submit" name="page" value="1">1</button>
+                        <li class="page-item"><button class="page-link" type="submit" name="currentPage" value="1">1</button>
                         </li>
-                        <li class="page-item"><button class="page-link" type="submit" name="page" value="2">2</button>
+                        <li class="page-item"><button class="page-link" type="submit" name="currentPage" value="2">2</button>
                         </li>
-                        <li class="page-item"><button class="page-link" type="submit" name="page" value="3">3</button>
+                        <li class="page-item"><button class="page-link" type="submit" name="currentPage" value="3">3</button>
                         </li>
-                        <li class="page-item"><button class="page-link" type="submit" name="page"
+                        <li class="page-item"><button class="page-link" type="submit" name="currentPage"
                                 value="Next">Next</button>
                         </li>
                     </ul>
