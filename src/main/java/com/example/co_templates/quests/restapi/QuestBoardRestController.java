@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-public class QuestBoardController {
+public class QuestBoardRestController {
 
     @Autowired
     Commons commons;

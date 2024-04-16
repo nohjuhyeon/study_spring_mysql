@@ -47,4 +47,12 @@ public class QuestBoardService {
         Object update = shareDao.update(sqlMapId, dataMap);
         return dataMap.size();
     }
+    public Object list(Integer pageNumber, HashMap<String, Object> dataMap){
+        // ArrayList<HashMap<String, Object>> itemList = new ArrayList<HashMap<String, Object>>();
+
+        String sqlMapId = "BoardCode.selectByUID";
+        Object list = shareDao.getList(sqlMapId, dataMap);
+        return list;
+
+    }
 }

@@ -10,7 +10,7 @@
         SELECT * 
 		FROM BOARDS 
 		WHERE 1 = 1
-		AND PK_BOARDS = #{PK_BOARDS}; <!-- #{PK_BOARDS} -->
+		AND TITLE LIKE %#{PK_BOARDS}%; <!-- #{PK_BOARDS} -->
 	</select>
 
 	<!-- 입력 -->
