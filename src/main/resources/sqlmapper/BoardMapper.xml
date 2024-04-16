@@ -9,8 +9,7 @@
 	<select id="selectByUID" parameterType="Map" resultType="Map">
         SELECT * 
 		FROM BOARDS 
-		WHERE 1 = 1
-		AND TITLE LIKE %#{PK_BOARDS}%; <!-- #{PK_BOARDS} -->
+		WHERE TITLE REGEXP #{TITLE}; <!-- #{PK_BOARDS} -->
 	</select>
 
 	<!-- 입력 -->
@@ -23,7 +22,7 @@
 
 	<!-- 수정 -->
 	<update id="update" parameterType="Map">
-		update PK_BOARDS
+		update PK_BOARDS from BOARDS
 		set WRITER_ID = #{WRITER_ID}
 		where 1 = 1
 		and PK_BOARDS = #{PK_BOARDS};

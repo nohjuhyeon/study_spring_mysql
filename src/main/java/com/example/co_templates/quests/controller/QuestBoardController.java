@@ -18,7 +18,7 @@ public class QuestBoardController {
 
 @GetMapping("q/board/list")
     public ModelAndView list(ModelAndView modelAndView
-                            , @RequestParam HashMap<String, Object>  dataMap) {
+                            , @RequestParam HashMap<String, String>  dataMap) {
        Object itemList = new ArrayList<HashMap<String, Object>>();
         // Call Service with Pure Java
         // CommonCodeService commonCodeService = new CommonCodeService();
