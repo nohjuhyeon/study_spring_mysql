@@ -18,14 +18,13 @@ public class CommonCodeController {
     @Autowired
     CommonCodeService commonCodeService;
 
-    @GetMapping("/commonCode/list")
+    // @GetMapping("/commonCode/list")
     public ModelAndView list(ModelAndView modelAndView
-                    , @RequestParam HashMap<String, Object> dataMap
-                    , @RequestParam(name = "deleteIds", required =false) ArrayList<String> deleteIds) {
-        Object itemList = new ArrayList<HashMap<String, Object>>();
+                    , @RequestParam HashMap<String, Object> dataMap) {
+        ArrayList<HashMap<String, Object>> itemList = new ArrayList<HashMap<String, Object>>();
         // Call Service with Pure Java
         // CommonCodeService commonCodeService = new CommonCodeService();
-        itemList = commonCodeService.selectMany(dataMap);
+        itemList = commonCodeService.list(1);
 
         String viewPath = "/WEB-INF/views/commoncode/list.jsp";
         modelAndView.setViewName(viewPath);
@@ -34,14 +33,31 @@ public class CommonCodeController {
 
         return modelAndView;
     }    
+
+    @GetMapping("/commonCode/list")
+    public ModelAndView listWithDB(ModelAndView modelAndView
+                    , @RequestParam HashMap<String, Object> dataMap
+                    , @RequestParam(name = "deleteIds", required = false) ArrayList<String> deleteIds) {
+        ArrayList<HashMap<String, Object>> itemList = new ArrayList<HashMap<String, Object>>();
+        // Call Service with Pure Java
+        // CommonCodeService commonCodeService = new CommonCodeService();
+        dataMap.put("deleteIds",deleteIds);
+        itemList = (ArrayList<HashMap<String, Object>>) commonCodeService.selectMany(dataMap);
+
+        String viewPath = "/WEB-INF/views/commoncode/list.jsp";
+        modelAndView.setViewName(viewPath);
+        modelAndView.addObject("itemList", itemList);
+        modelAndView.addObject("dataMap", dataMap);
+
+        return modelAndView;
+    }  
     
     @GetMapping("/commonCode/list_pagination")
     public ModelAndView listPagination(ModelAndView modelAndView
                     , @RequestParam HashMap<String, Object> dataMap
-                    , @RequestParam(name = "deleteIds", required =false) ArrayList<String> deleteIds) {
-        // Call Service with Pure Java
-        // CommonCodeService commonCodeService = new CommonCodeService();
-        Object result = commonCodeService.selectSearchWithPagination(dataMap);
+                    , @RequestParam(name = "deleteIds", required = false) ArrayList<String> deleteIds) {
+        dataMap.put("deleteIds", deleteIds);
+        Object result = commonCodeService.selectSearchWithPaginationAndDeletes(dataMap);
 
         String viewPath = "/WEB-INF/views/commoncode/list_pagination.jsp";
         modelAndView.setViewName(viewPath);
@@ -50,4 +66,6 @@ public class CommonCodeController {
 
         return modelAndView;
     }    
+    
+
 }

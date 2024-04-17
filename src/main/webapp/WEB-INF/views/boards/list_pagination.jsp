@@ -44,30 +44,13 @@
                         <%
                             HashMap dataMap = (HashMap) request.getAttribute("dataMap");
                             String search = (String) dataMap.getOrDefault("search", "");
-                            String searchType = (String) dataMap.getOrDefault("searchType", "");
                         %>
                         <div class="input-group mb-3">
                             <!-- 셀렉트 박스 추가 -->
-                            <select class="form-select" id="searchType" name="searchType" >
-                                <option>Choose...</option>
-                                <% 
-                                if(searchType.equals("CODE_NAME")){
-                                %>
-                                <option selected value="CODE_NAME">CODE_NAME</option>
-                                <option value="DESCRIPTION">DESCRIPTION</option>
-                                <%
-                                }else if (searchType.equals("DESCRIPTION")){
-                                %>
-                                <option  value="CODE_NAME">CODE_NAME</option>
-                                <option selected value="DESCRIPTION">DESCRIPTION</option>
-                                <%
-                                }else {
-                                %>
+                            <select class="form-select" id="searchType" name="searchType">
+                                <option selected>Choose...</option>
                                 <option value="CODE_NAME">CODE_NAME</option>
                                 <option value="DESCRIPTION">DESCRIPTION</option>
-                                <%
-                                }
-                                %>
                             </select>                            
                             <input type="text" class="form-control" name="search" value="<%= search %>" placeholder="Search..." id="keydownEnter">
                             <button class="btn btn-primary">Go</button>
@@ -116,7 +99,7 @@
                     <div>Total Count : <%= paginations.getTotalCount() %></div>
                     <ul class="pagination justify-content-center">
                         <li class="page-item"><button class="page-link" type="submit" name="currentPage"
-                                value="<%= paginations.getPreviousPage() %>">Previous</button></li>
+                                value="Previous">Previous</button></li>
                         <%
                             for(int i=paginations.getBlockStart(); i <= paginations.getBlockEnd(); i++){
                         %>
@@ -135,7 +118,7 @@
                         </li> -->
                         <li class="page-item">
                             <button class="page-link" type="submit" name="currentPage"
-                                value="<%= paginations.getNextPage() %>">Next</button>
+                                value="Next">Next</button>
                         </li>
                     </ul>
                 </nav>            
