@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Customer CSS commons.css -->
-    <link rel="stylesheet" href="../css/commons.css">
-</head>
+    <!-- header -->
+    <%@ include file="/WEB-INF/views/templates/header.jsp" %>
 
 <body>
-    <nav>nav</nav>
+           <!-- Menu -->
+           <%@ include file="/WEB-INF/views/templates/navigator.jsp" %>
     <main class="container">
         <h2>BOARD CREATE</h2>
         <form action="">
@@ -39,9 +33,9 @@
 
           </form>
     </main>
-    <footer>footer</footer>
+            <!-- Footer -->
+            <%@ include file="/WEB-INF/views/templates/footer.jsp" %>
 </body>
 <!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>
