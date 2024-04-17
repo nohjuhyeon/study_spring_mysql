@@ -9,8 +9,8 @@
 	<select id="selectByUID" parameterType="Map" resultType="Map">
         SELECT * 
 		FROM BOARDS 
-		WHERE 1 = 1
-		AND TITLE REGEXP "Tech"; <!-- #{PK_BOARDS} -->
+		WHERE PK_BOARDS=#{PK_BOARDS};
+ <!-- #{PK_BOARDS} -->
 	</select>
 
 	<!-- 입력 -->
@@ -24,7 +24,7 @@
 	<!-- 수정 -->
 	<update id="update" parameterType="Map">
 	UPDATE BOARDS
-	SET CONTENTS = #{CONTENTS}
+	SET TITLE = #{TITLE}, WRITER_ID = #{WRITER_ID}, PARENT_BOARDS = #{PARENT_BOARDS}, CONTENTS = #{CONTENTS}, CREATE_DATE = CURRENT_TIMESTAMP
 	WHERE PK_BOARDS=#{PK_BOARDS};
     </update>
 
@@ -33,4 +33,37 @@
 		DELETE FROM BOARDS
 		WHERE PK_BOARDS = #{PK_BOARDS};
     </delete>
+
+	<!-- 여러개 삭제 -->
+	<delete id="deletewithin" parameterType="Map">
+		DELETE FROM BOARDS
+		WHERE  
+		<foreach item="pk_item" index="index" collection="deleteIds"
+			open="PK_BOARDS in (" separator="," close=")" nullable="true">
+			#{pk_item}
+		</foreach>
+		;
+	</delete>
+		<!-- total count -->
+	<select id="selectTotal" parameterType="Map" resultType="int">
+        select count(*) as cnt
+        from BOARDS
+		<if test="search != null and search != ''">
+		where ${searchType} regexp #{search}
+		</if>
+        ;
+	</select>
+  
+  <!-- 검색 with pagination -->
+	<select id="selectSearchWithPagination" parameterType="Map" resultType="Map">
+        SELECT *
+        FROM BOARDS
+        where 1 = 1
+		<if test="search != null and search != ''">
+		and ${searchType} regexp #{search}
+		</if>
+        limit #{pageBegin}, #{pageScale}
+        ;
+	</select>
+
 </mapper>

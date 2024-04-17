@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.co_templates.quests.services.QuestBoardService;
-import com.example.co_templates.services.CommonCodeService;
 @Controller
 public class QuestBoardController {
     
@@ -31,4 +30,65 @@ public class QuestBoardController {
 
         return modelAndView;
     }
+
+    @GetMapping("q/board/list_pagination")
+    public ModelAndView listPagination(ModelAndView modelAndView
+                    , @RequestParam HashMap<String, Object> dataMap
+                    , @RequestParam(name = "deleteIds", required = false) ArrayList<String> deleteIds) {
+        if ( dataMap.containsKey("btn_type")){
+        if (dataMap.get("btn_type").equals("delete")){
+        dataMap.put("deleteIds", deleteIds);
+        }else if (dataMap.get("btn_type").equals("insert")){
+            BoardService.board_insert(dataMap);
+            }
+    }
+        Object result = BoardService.selectSearchWithPaginationAndDeletes(dataMap);
+
+        String viewPath = "/WEB-INF/views/boards/list_pagination.jsp";
+        modelAndView.setViewName(viewPath);
+        modelAndView.addObject("result", result);
+        modelAndView.addObject("dataMap", dataMap);
+
+        return modelAndView;
+    }    
+    @GetMapping("q/board/read")
+    public ModelAndView readBoard(ModelAndView modelAndView
+                    , @RequestParam HashMap<String, Object> dataMap) {
+        if ( dataMap.containsKey("btn_type")){
+            if (dataMap.get("btn_type").equals("UPDATE")){
+                BoardService.board_update(dataMap); 
+            }
+        }
+        Object result = BoardService.board_read(dataMap);
+        String viewPath = "/WEB-INF/views/boards/reads.jsp";
+        modelAndView.setViewName(viewPath);
+        modelAndView.addObject("result", result);
+        modelAndView.addObject("dataMap", dataMap);
+
+        return modelAndView;
+    }    
+    @GetMapping("q/board/insert")
+    public ModelAndView insertBoard(ModelAndView modelAndView
+                    , @RequestParam HashMap<String, Object> dataMap) {
+        Object result = BoardService.board_read(dataMap);
+
+        String viewPath = "/WEB-INF/views/boards/inserts.jsp";
+        modelAndView.setViewName(viewPath);
+        modelAndView.addObject("result", result);
+        modelAndView.addObject("dataMap", dataMap);
+
+        return modelAndView;
+    }    
+    @GetMapping("q/board/update")
+    public ModelAndView updateBoard(ModelAndView modelAndView
+                    , @RequestParam HashMap<String, Object> dataMap) {
+        Object result = BoardService.board_read(dataMap);
+
+        String viewPath = "/WEB-INF/views/boards/update.jsp";
+        modelAndView.setViewName(viewPath);
+        modelAndView.addObject("result", result);
+        modelAndView.addObject("dataMap", dataMap);
+
+        return modelAndView;
+                    }
 }

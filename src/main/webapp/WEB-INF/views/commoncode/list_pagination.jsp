@@ -3,11 +3,12 @@
     <html lang="en">
 
     <!-- header -->
+    <%@ include file="/WEB-INF/views/templates/header.jsp" %>
     <body>
 
         
         <!-- Menu -->
-        
+        <%@ include file="/WEB-INF/views/templates/navigator.jsp" %>
         <!-- Main Content -->
         <form action="/commonCode/list_pagination" method="get">
         <div class="container mt-4">
@@ -44,6 +45,7 @@
                             </select>                            
                             <input type="text" class="form-control" name="search" value="<%= search %>" placeholder="Search..." id="keydownEnter">
                             <button class="btn btn-primary">Go</button>
+                            <button class="btn btn-danger">Delete</button>
                         </div>
                 </div>
                 <div class="col-12">
@@ -116,7 +118,7 @@
         </form>
 
         <!-- Footer -->
-
+        <%@ include file="/WEB-INF/views/templates/footer.jsp" %>
     </body>
 
     </html>
